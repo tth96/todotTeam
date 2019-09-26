@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+.bg-body{
+    background-image: url('../src/assets/images/background-todolist.jpg') ;
+    background-repeat: no-repeat;
+    background-position: center center fixed;
+    background-attachment: fixed;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.bg-body::before{
+    content: '';
+    position: fixed;
+    z-index: -3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(12, 12, 12, 0.73);
+}

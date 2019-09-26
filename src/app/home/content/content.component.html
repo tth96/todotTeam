@@ -1,0 +1,210 @@
+<div class="container wrapper-content w-100 mw-100 " style="max-height: 100vh;">
+    <div class="row d-flex justify-content-center">
+        <!-- Form Add -->
+        <div *ngIf="isShow" class="wrapper-form w-100">
+            <button *ngIf="!ShowAddForm" class="btn btn-search" (click)="ShowAddForm = !ShowAddForm">Thêm mới</button>
+            <div *ngIf="ShowAddForm" class="adddata w-100 my-3">
+                <h5 class="title-h5 title-add">Thêm Item</h5>
+                <div class="todo-input card p-3 my-2" style="padding: 0 !important;">
+                    <form class="form-total" (ngSubmit)="postform()" [formGroup]="formadddata">
+                        <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                            <label for="todoId"></label>
+                            <input type="text" class="form-control" name="todoId" formControlName="todoId"
+                                placeholder="Nhập ID">
+                            <div *ngIf="formadddata.get('todoId').invalid && (formadddata.get('todoId').dirty || formadddata.get('todoId').touched)"
+                                class="danger">
+                                <p *ngIf="formadddata.get('todoId').hasError('required')" class="report-form">Nhập ID
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-4 col-sm-12">
+                            <label for="title"></label>
+                            <input type="text" class="form-control" name="todoTitle" formControlName="todoTitle"
+                                placeholder="Nhập Tiêu Đề">
+                            <div *ngIf="formadddata.get('todoTitle').invalid && (formadddata.get('todoTitle').dirty || formadddata.get('todoTitle').touched)"
+                                class="danger">
+                                <p class="report-form" *ngIf="formadddata.get('todoTitle').hasError('required')">Nhập
+                                    cái gì vào nhé </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                            <label for="data"></label>
+                            <input type="text" class="form-control" name="todoTime" formControlName="todoTime"
+                                placeholder="Ngày tháng">
+                            <div *ngIf="formadddata.get('todoTime').invalid && (formadddata.get('todoTime').dirty || formadddata.get('todoTime').touched)"
+                                class="danger">
+                                <p class="report-form" *ngIf="formadddata.get('todoTime').hasError('required')">Vui lòng
+                                    chọn ngày nhập</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                            <label for="desc"></label>
+                            <textarea type="text" class="form-control w-100" name="todoDescription"
+                                formControlName="todoDescription" placeholder="Nội Dung"></textarea>
+                            <div *ngIf="formadddata.get('todoDescription').invalid && (formadddata.get('todoDescription').dirty || formadddata.get('todoDescription').touched)"
+                                class="danger">
+                                <p class="report-form" *ngIf="formadddata.get('todoDescription').hasError('required')">
+                                    Viết cái gì vào nhé </p>
+                            </div>
+                        </div>
+                        <div class="form-group box-btn text-right">
+                            <button class="btn btn-cancel mr-3" (click)="ShowAddForm = !ShowAddForm">Huỷ bỏ</button>
+                            <button class="btn btn-success " [disabled]="formadddata.invalid">Thêm mới</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Form Sửa -->
+        <div *ngIf="!isShow" class="changedata w-100 my-3 p-3">
+            <h5 class="title-h5" style="background: #13b739">Sửa Item</h5>
+            <div class="todo-input card p-3 my-2" style="padding: 0 !important;">
+                <form [formGroup]="changedata" class="form-total">
+                    <div class="form-group" *ngIf="changedata.get('todoId').invalid">
+                        <label for="todoID"></label>
+                        <input type="text" class="form-control" name="todoId" formControlName="todoId"
+                            placeholder="Nhập ID">
+                        <div *ngIf="changedata.get('todoId').invalid && (changedata.get('todoId').dirty || changedata.get('todoId').touched)"
+                            class="danger">
+                            <p class="report-form" *ngIf="changedata.get('todoId').hasError('required')">Nhập cái gì vào
+                                nhé </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        <label for="title"></label>
+                        <input type="text" class="form-control" name="todoTitle" formControlName="todoTitle"
+                            placeholder="Nhập Tiêu Đề">
+                        <div *ngIf="changedata.get('todoTitle').invalid && (changedata.get('todoTitle').dirty || changedata.get('todoTitle').touched)"
+                            class="danger">
+                            <p class="report-form" *ngIf="changedata.get('todoTitle').hasError('required')">Nhập cái gì
+                                vào nhé </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        <label for="date"></label>
+                        <input type="text" class="form-control" name="todoTime" formControlName="todoTime"
+                            placeholder="Ngày Tháng">
+                        <div *ngIf="changedata.get('todoTime').invalid && (changedata.get('todoTime').dirty || changedata.get('todoTime').touched)"
+                            class="danger">
+                            <p class="report-form" *ngIf="changedata.get('todoTime').hasError('required')">Chọn ngày nhé
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="desc"></label>
+                        <textarea type="text" class="form-control" name="todoDescription"
+                            formControlName="todoDescription" placeholder="Nội Dung"></textarea>
+                        <div *ngIf="changedata.get('todoDescription').invalid && (changedata.get('todoDescription').dirty || changedata.get('todoDescription').touched)"
+                            class="danger">
+                            <p class="report-form" *ngIf="changedata.get('todoDescription').hasError('required')">Viết
+                                cái gì vào nhé </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group box-btn text-right">
+                        <button class="btn btn-cancel m-3" (click)="huybo()">Huỷ bỏ</button>
+                        <button class="btn btn-success" [disabled]="changedata.invalid"
+                            (click)="suadata(changedata, changedata.todoId)">Sửa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- List Table Demo-->
+        <div class="col-12 my-3">
+            <h5 class="title-h5 title-list-item">List Item</h5>
+            <div class="responsive-table" style="max-height: 400px; overflow-y: auto">
+                <table class="table-cs text-center">
+                    <!-- List Item -->
+                    <thead>
+                        <th>Check</th>
+                        <th>Tiêu đề</th>
+                        <th>Nội dung</th>
+                        <th>Ngày nhập</th>
+                        <th>Chức Năng</th>
+                    </thead>
+                    <tbody class="col-lg-6 col-md-12 p-3">
+                        <div class="checkboxid">
+                        </div>
+                        <tr class="content-item" *ngFor="let ttin of info">
+                            <td class="todo-checkbox">
+                                <input type="checkbox" (change)="checked(ttin.todoId)">
+                            </td>
+                            <td class="todo-title">{{ ttin.todoTitle }}</td>
+                            <td class="todo-desc">{{ ttin.todoDescription }}</td>
+                            <td class="todo-date">{{ ttin.todoTime }}</td>
+                            <td class="group-btns" style="min-width: 200px;">
+                                <button class="btn btn-cancel m-2" [disabled]="!isShow || showDelete || ShowAddForm"
+                                    (click)="share(ttin.todoId)">Xoá</button>
+                                <button class="btn btn-search m-2" [disabled]="!isShow || ShowAddForm"
+                                    (click)="hienformdata(ttin,ttin.todoId)">Sửa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="group-btn">
+                <button class="btn btn-cancel m-3" (click)="deleteSelect()">Xoá Vùng Chọn</button>
+                <button class="btn btn-warning m-3" (click)="deleteAll()">Xoá Tất Cả</button>
+            </div>
+        </div>
+
+
+
+        <!-- List -->
+        <!-- <div class="col-12 my-3">
+            <h5 class="title-h5 title-list-item">List Item</h5>
+            <div class="wrapper-list-item row" style="max-height: 600px; overflow-y: auto"> -->
+        <!-- List Item -->
+        <!-- <div class="col-lg-6 col-md-12 p-3" *ngFor="let ttin of info">
+                    <div class="box-item position-relative">
+                        <div class="checkboxid">
+                            <input type="checkbox" (change)="checked(ttin.todoId)">
+                        </div>
+                        <div class="content-item">
+                            <h4>{{ ttin.todoTitle }}</h4>
+                            <p class="desc">{{ ttin.todoDescription }}</p>
+                            <span class="time">{{ ttin.todoTime }}</span>
+                            <div class="btn-group">
+                                <button class="btn btn-cancel m-2" [disabled]="!isShow || showDelete" (click)="share(ttin.todoId)">Xoá</button>
+                                <button class="btn btn-search m-2" [disabled]="!isShow" (click)="hienformdata(ttin,ttin.todoId)">Sửa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-end">
+                    <button class="btn btn-cancel m-3" (click)="deleteSelect()">Delete</button>
+                    <button class="btn btn-warning m-3" (click)="deleteAll()">Delete All</button>
+                </div>
+        </div>
+    </div> -->
+        <!-- <div class="row d-flex justify-content-center">
+
+    </div> -->
+        <!-- Thông Báo Xoá -->
+
+    </div>
+    <div class="wrapper-delete" *ngIf="showDeleteSelect">
+        <h6>Bạn có chắc là muốn xoá các mục này?</h6>
+        <div class="form-group text-right">
+            <button class="btn btn-cancel m-3" (click)="showDelete = !showDelete">Huỷ bỏ</button>
+            <button class="btn btn-success m-2" (click)="clickdelete()">Xoá</button>
+        </div>
+    </div>
+    <!-- <div class="wrapper-delete" *ngIf="showDeleteAll">
+    <h6>Bạn có chắc là muốn xoá toàn bộ?</h6>
+    <div class="form-group text-right">
+        <button class="btn btn-cancel m-3" (click)="showDelete = !showDelete">Huỷ bỏ</button>
+        <button class="btn btn-success m-2" (click)="clickdelete()">Xoá</button>
+    </div>
+</div>
+<div class="wrapper-delete" *ngIf="showDelete">
+    <h6>Bạn có chắc là muốn xoá nó chưa) </h6>
+    <div class="form-group text-right">
+        <button class="btn btn-cancel m-3" (click)="showDelete = !showDelete">Huỷ bỏ</button>
+        <button class="btn btn-success m-2" (click)="clickdelete()">Xoá</button>
+    </div>
+</div> -->
